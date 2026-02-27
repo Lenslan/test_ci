@@ -21,7 +21,7 @@
 	case 'Set4Det'
 	% EVENT 2: DIS
 	% reset post disappearance
-	nb_trans = 2; cmdEn = 0; cmdExtEn = 0; timeOutEn = 0; sleepEn = 0; timeOutVal = 0; dspEn = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ];
+	nb_trans = 2; cmdEn = 0; cmdExtEn = 0; timeOutEn = 0; sleepEn = 0; timeOutVal = 0; dspEn = [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ];
 	op{1,1} = 'radarDet'; op{1,2} = 'false'; op{1,3} = 'false'; pathComb{1} = 0; opComb{1} = 0; tgtState{1} = 'ValidRadarPostDis';
 	op{2,1} = 'true'; op{2,2} = 'false'; op{2,3} = 'false'; pathComb{2} = 0; opComb{2} = 0; tgtState{2} = 'Set4DetInitGain';
 

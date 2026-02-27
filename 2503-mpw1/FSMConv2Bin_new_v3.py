@@ -601,4 +601,3 @@ if __name__ == "__main__":
         print(e)
     if error:
         sys.exit(1)
-    input()
