@@ -1,0 +1,81 @@
+name: MATLAB FSM CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '*.m'
+      - 'FSMConv2Bin_new_v3.py'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '*.m'
+      - 'FSMConv2Bin_new_v3.py'
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Run FSM conversion script
+      run: |
+        echo "Running FSM conversion..."
+
+        python FSMConv2Bin_new_v3.py \
+          StateM_MPW1_2503_hb_CBW20.m \
+          StateM_MPW1_2503_hb_CBW40.m \
+          StateM_MPW1_2503_hb_CBW80_160.m \
+          StateM_MPW1_2503_lb_CBW20.m \
+          StateM_MPW1_2503_lb_CBW40.m
+
+        echo "Script finished successfully."
+
+    - name: Collect bin files and generate md5 summary
+      run: |
+        echo "Searching generated directories..."
+
+        mkdir -p ci_artifacts
+        touch ci_artifacts/md5_summary.txt
+
+        for dir in AgcGen_*; do
+          if [ -d "$dir" ]; then
+            echo "Processing $dir"
+
+            for binfile in $dir/*.bin; do
+              if [ -f "$binfile" ]; then
+                md5=$(md5sum "$binfile" | awk '{print $1}')
+                filename=$(basename "$binfile")
+                echo "$filename  $md5" >> ci_artifacts/md5_summary.txt
+              fi
+            done
+
+            cp -r "$dir" ci_artifacts/
+          fi
+        done
+
+        echo "MD5 Summary:"
+        cat ci_artifacts/md5_summary.txt
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: fsm-build-output
+        path: ci_artifacts
+
+    - name: Publish MD5 summary to PR
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "## ✅ BIN MD5 Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat ci_artifacts/md5_summary.txt >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
