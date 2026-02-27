@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '*.m'
-      - 'FSMConv2Bin_new_v3.py'
+      - '2503-mpw1/*.m'
+      - '2503-mpw1/FSMConv2Bin_new_v3.py'
 
   pull_request:
     branches: [ main ]
