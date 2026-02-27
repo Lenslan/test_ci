@@ -28,7 +28,7 @@
 	case 'DsssDet'
 	% EVENT 3: DSSS DET
 	% reset detection and saturation blocks
-	nb_trans = 2; cmdEn = 0; cmdExtEn = 0; timeOutEn = 1; sleepEn = 0; timeOutVal = 50; dspEn = [0 0 0 0 0 0 0 1 0 0 0 1 1 1 1 ];
+	nb_trans = 2; cmdEn = 0; cmdExtEn = 0; timeOutEn = 1; sleepEn = 0; timeOutVal = 50; dspEn = [1 0 0 0 0 0 0 1 0 0 0 1 1 1 1 ];
 	op{1,1} = 'ofdmOnly'; op{1,2} = 'false'; op{1,3} = 'false'; pathComb{1} = 0; opComb{1} = 0; tgtState{1} = 'Sleep';
 	op{2,1} = 'timeOut'; op{2,2} = 'false'; op{2,3} = 'false'; pathComb{2} = 0; opComb{2} = 0; tgtState{2} = 'Sleep';
 
