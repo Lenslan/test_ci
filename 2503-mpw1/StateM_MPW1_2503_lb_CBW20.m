@@ -13,7 +13,7 @@
 	case 'Wait4Plat'
 	% EVENT 1: DET
 	% stop modem
-	nb_trans = 1; cmdEn = 1; cmdExtEn = 0; timeOutEn = 0; sleepEn = 0; timeOutVal = 0; dspEn = [0 1 0 0 0 0 0 0 0 1 0 1 1 1 1 ];
+	nb_trans = 1; cmdEn = 1; cmdExtEn = 0; timeOutEn = 0; sleepEn = 0; timeOutVal = 0; dspEn = [1 1 0 0 0 0 0 0 0 1 0 1 1 1 1 ];
 	cmd = 50; parameter1 = [0,0,0 ];
 	op{1,1} = 'true'; op{1,2} = 'false'; op{1,3} = 'false'; pathComb{1} = 0; opComb{1} = 0; tgtState{1} = 'SLNACheck';
 
